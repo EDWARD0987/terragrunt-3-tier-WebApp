@@ -1,0 +1,6 @@
+# Ignore all cache directories
+**/.terragrunt-cache/
+**/.terraform-cache/
+
+# Ignore specific cache files
+**/*.lock.hcl
