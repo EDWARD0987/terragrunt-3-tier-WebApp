@@ -1,3 +1,6 @@
+Getting started overview => https://terragrunt.gruntwork.io/docs/getting-started/overview/
+
+
 # Recomended folder structure
 # Setting up a Terragrunt folder structure properly ensures modular, reusable, and manageable infrastructure. Here's an optimal layout for a three-tier web architecture in AWS using Terragrunt
 
@@ -21,29 +24,6 @@
  Reusable IAM Roles, Security Policies, or Defaults
 
 
-terraform/
-├── modules/
-│   ├── web-tier/         # Web layer (ALB & EC2 instances)
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-│   ├── app-tier/         # Application layer (Auto Scaling & Backend)
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-│   ├── db-tier/          # Database layer (RDS setup)
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── outputs.tf
-├── environments/
-│   ├── dev/              # Development environment configs
-│   │   ├── terragrunt.hcl
-│   ├── prod/             # Production environment configs
-│   │   ├── terragrunt.hcl
-├── global/               # Root configurations shared across modules
-│   ├── terragrunt.hcl
-│   ├── provider.tf
-│   ├── backend.tf        # Defines remote backend
 
 
 Understanding Each Part
