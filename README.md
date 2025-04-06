@@ -4,8 +4,10 @@ Getting started overview => https://terragrunt.gruntwork.io/docs/getting-started
 # Recomended folder structure
 # Setting up a Terragrunt folder structure properly ensures modular, reusable, and manageable infrastructure. Here's an optimal layout for a three-tier web architecture in AWS using Terragrunt
 
- Web Tier → Load balancer, EC2 instances, security groups
- App Tier → Auto Scaling Group, backend logic, IAM roles
+ Web Tier → Load balancer, EC2 instances, security groups.
+
+ App Tier → Auto Scaling Group, backend logic, IAM roles.
+ 
  DB Tier → RDS database, subnet placement, backup configuration
 
  # Understanding the flow
