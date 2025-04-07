@@ -20,6 +20,12 @@ resource "aws_security_group" "web_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+   egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # "-1" allows all protocols
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_alb" "web_alb" {
@@ -34,6 +40,10 @@ resource "aws_launch_template" "web_lt" {
   name_prefix   = "web-launch-template"
   image_id      = var.ami_id
   instance_type = var.instance_type
+  iam_instance_profile {
+    name = var.iam_instance_profile
+    
+  }
 
   network_interfaces {
     associate_public_ip_address = true

@@ -15,6 +15,7 @@ inputs = {
   min_instances     = 2
   max_instances     = 5
   desired_instances = 3
+  iam_instance_profile = "SSMRoleForEC2"
   launch_template   = {
     name_prefix      = "web-launch-template"
     version          = "$Latest"

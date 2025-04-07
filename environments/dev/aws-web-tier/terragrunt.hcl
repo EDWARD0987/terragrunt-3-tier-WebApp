@@ -12,7 +12,8 @@ inputs = {
   instance_type  = "t3.micro"
   subnet_ids     =["subnet-0f25e0b51c1f49cb9", "subnet-0ff6ef8ee6908b8e3"]
   web_ports      = [80, 443]
-  PatchGroup     = 
+  PatchGroup     = "dev-patch-group"
+  iam_instance_profile = "SSMRoleForEC2"
 
 
   user_data = <<EOF
