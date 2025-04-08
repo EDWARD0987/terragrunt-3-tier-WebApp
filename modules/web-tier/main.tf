@@ -28,13 +28,8 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-# resource "aws_alb" "web_alb" {
-#   name               = "web-tier-alb"
-#   load_balancer_type = "application"
-#   security_groups    = [aws_security_group.web_sg.id]
-#   subnets            = var.subnet_ids
-# }
-#TODO made change above to aws_lb
+
+# Created ALB 
 resource "aws_lb" "web_alb" {
   name               = "web-tier-alb"
   load_balancer_type = "application"
@@ -42,6 +37,7 @@ resource "aws_lb" "web_alb" {
   subnets            = var.subnet_ids
 }
 
+# CREATES LAUNCH TEMPLATE
 resource "aws_launch_template" "web_lt" {
   name_prefix   = "web-launch-template"
   image_id      = var.ami_id
@@ -75,7 +71,7 @@ EOF
 }
 
 
-
+# creates ASG 
 resource "aws_autoscaling_group" "web_asg" {
   name                = "web-tier-asg"
   max_size            = var.max_instances
@@ -91,7 +87,7 @@ resource "aws_autoscaling_group" "web_asg" {
 }
 
 
-# Defining target groups  #TODO
+# Defining target groups  
 resource "aws_lb_target_group" "web_tg" {
   name     = "web-target-group"
   port     = 80
@@ -112,17 +108,8 @@ resource "aws_autoscaling_attachment" "web_asg_attachment" {
   lb_target_group_arn    = aws_lb_target_group.web_tg.arn
 }
 
-# # attach LISTENER RULES FOR ALB  #todo
-# resource "aws_lb_listener" "http" {
-#   load_balancer_arn = aws_lb.web.arn
-#   port              = 80
-#   protocol          = "HTTP"
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.web_tg.arn
-#   }
-# }
 
+# Attaching listener rules
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.web_alb.arn
   port              = 80
@@ -135,6 +122,62 @@ resource "aws_lb_listener" "http" {
 }
 
 
+
+# Let's add HTTPS support to your Application Load Balancer (ALB) so traffic is securely encrypted. Follow these steps:
+
+# Before configuring HTTPS, you need an SSL certificate. If you don’t have one yet, run this AWS CLI command to request a free certificate
+
+# aws acm request-certificate \
+#   --domain-name yourdomain.com \
+#   --validation-method DNS
+
+# IF USING TERRAFORM CREATE THE CERTIFICATE, AWS will generate a certificate that we can attach to ALB
+
+# resource "aws_acm_certificate" "ssl_cert" {
+#   domain_name       = "yourdomain.com"
+#   validation_method = "DNS"
+# }
+
+# Modify your ALB configuration to enable HTTPS on porT 443, Now ALB will listen for HTTPS traffic and forward it securely to instances
+# resource "aws_lb_listener" "https" {
+#   load_balancer_arn = aws_lb.web_alb.arn
+#   port              = 443
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08" # AWS-managed security policy
+#   certificate_arn   = aws_acm_certificate.ssl_cert.arn
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.web_tg.arn
+#   }
+# }
+
+
+# Redirect HTTP Traffic to HTTPS
+# To ensure all traffic is forced over HTTPS, modify your listener rule for HTTP (port 80):
+#  Any requests to HTTP will now be redirected to HTTPS.
+
+# resource "aws_lb_listener" "http_redirect" {
+#   load_balancer_arn = aws_lb.web_alb.arn
+#   port              = 80
+#   protocol          = "HTTP"
+
+#   default_action {
+#     type = "redirect"
+
+#     redirect {
+#       protocol    = "HTTPS"
+#       port        = "443"
+#       status_code = "HTTP_301"
+#     }
+#   }
+# }
+
+
+
+
+
+# TO CREATE A STAND ALONE EC2 INSTANCE 
 
 # resource "aws_instance" "web_server" {
 #   ami           = var.ami_id
