@@ -6,6 +6,9 @@ include {
   path = find_in_parent_folders("root.hcl")
 }
 
+
+
+
 inputs = {
   environment    = "dev"
   web_name       = "dev-web"
@@ -14,14 +17,16 @@ inputs = {
   web_ports      = [80, 443]
   PatchGroup     = "dev-patch-group"
   iam_instance_profile = "SSMRoleForEC2"
+  
 
 
   user_data = <<EOF
 #!/bin/bash
-yum update -y
-yum install -y httpd
-systemctl enable httpd
-systemctl start httpd
+sudo yum update -y
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
 EOF
 
 

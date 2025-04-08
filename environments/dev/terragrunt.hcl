@@ -6,6 +6,9 @@ terraform {
   source = "../../modules/web-tier"  # Path to web-tier module
 }
 
+
+
+
 inputs = {
   aws_region        = "us-east-1"
   vpc_id            = "vpc-0e332f3b9d2eb8bf3"
@@ -14,6 +17,7 @@ inputs = {
   min_instances     = 2
   max_instances     = 5
   desired_instances = 3
+ 
 
   launch_template   = {
     name_prefix          = "web-launch-template"

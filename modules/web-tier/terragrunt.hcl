@@ -6,6 +6,14 @@ include {
   path = find_in_parent_folders()
 }
 
+dependency "alb" {                          # TODO
+  config_path = "../../../modules/alb"
+}
+
+inputs = {
+  target_group_arn = dependency.alb.outputs.web_target_group_arn
+}
+
 inputs = {
   aws_region        = "us-east-1"
   vpc_id            = "vpc-0e332f3b9d2eb8bf3"
