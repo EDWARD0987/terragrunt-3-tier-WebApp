@@ -1,6 +1,7 @@
 #This ensures Terraform state files are stored securely in S3, preventing conflicts between environments.
 
-
+# Stores Terraform state files in AWS S3 ( bucket) => elinks-terragrunt-demo
+# Uses ${path_relative_to_include()} to dynamically structure state paths per environment.
 remote_state {
   backend = "s3"
   config = {
@@ -13,6 +14,8 @@ remote_state {
 }
 
 
+# Dynamically generates a Terraform AWS provider (provider.tf) inside the Terragrunt-managed modules.
+# Uses ,(if_exists ="skip") meaning Terragrunt won’t overwrite an existing  file
 generate "provider" {
   path      = "provider.tf"
   if_exists = "skip"   # Avoid overwriting an existing provider.tf file
@@ -23,6 +26,11 @@ provider "aws" {
 EOF
 }
 
+
+# Passes configuration variables to Terraform (vpc_id,subnets ,AMI ,instance_type , etc.)
+# launch template Defines an EC2 Launch Template with the latest version
+# common_tags Sets default tags for all AWS resources
+# Uses "${basename(path_relative_to_include())}", ensuring different environments (like dev and prod) automatically apply the correct tag.
 inputs = {
   aws_region        = "us-east-1"
   vpc_id            = "vpc-0e332f3b9d2eb8bf3"

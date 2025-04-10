@@ -37,7 +37,7 @@ resource "aws_lb" "web_alb" {
   subnets            = var.subnet_ids
 }
 
-# CREATES LAUNCH TEMPLATE
+# CREATES LAUNCH TEMPLATE and ATTACHS PATCH_GROUP FOR PATCHING
 resource "aws_launch_template" "web_lt" {
   name_prefix   = "web-launch-template"
   image_id      = var.ami_id
@@ -66,6 +66,8 @@ EOF
     resource_type = "instance"
     tags = {
       Name = "Web-Tier-Instance"
+      PatchGroup = "web-patching"
+
     }
   }
 }

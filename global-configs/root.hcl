@@ -22,6 +22,13 @@ EOF
 }
 
 
+# TODO  Then, reference it dynamically in other modules.
+locals {
+  patch_baseline_id = "pb-1234567890"
+}
+
+
+
 inputs = {
   aws_region        = "us-east-1"
   vpc_id            = "vpc-0e332f3b9d2eb8bf3"
