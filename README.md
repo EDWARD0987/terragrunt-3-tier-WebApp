@@ -60,8 +60,11 @@ In Terragrunt, you use include.locals to reference variables from an included co
 Example Global VPC ConfiG
 
 inputs = {
+
   vpc_id = "vpc-abc123"
+  
   public_subnets  = ["subnet-111", "subnet-222"]
+  
   private_subnets = ["subnet-333", "subnet-444"]
 }
 
@@ -72,13 +75,18 @@ To retrive private subnets use  include.locals
 EXAMPLE 
 
 include {
+ 
   path = "../../global-configs/terragrunt.hcl"
 }
 
 inputs = {
+ 
   db_engine = "postgres"
+ 
   allocated_storage = 50
+ 
   vpc_id = include.locals.vpc_id
+ 
   private_subnets = include.locals.private_subnets
 }
 
@@ -87,6 +95,7 @@ Global vpc cidr => global-configs/terragrunt.hcl
 EXAMPLE
 
 locals {
+ 
   vpc_cidr = "10.0.0.0/16"
 }
 
@@ -94,10 +103,12 @@ Then referece it in each module
 
 EXAMPLE
 include {
+  
   path = "../../global-configs/terragrunt.hcl"
 }
 
 inputs = {
+  
   vpc_cidr = include.locals.vpc_cidr
 }
 
