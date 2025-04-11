@@ -131,12 +131,19 @@ We’ll use an AWS S3 bucket to store Terraform’s state files securely
 Setup remote state in root.hcl 
 
 remote_state {
+
   backend = "s3"
+
   config = {
+    
     bucket         = "my-terraform-state"
+    
     key            = "${path_relative_to_include()}/terraform.tfstate"
+   
     region         = "us-east-1"
+    
     encrypt        = true
+    
     dynamodb_table = "terraform-lock"
   }
 }
@@ -161,7 +168,9 @@ Improve Deployment Efficiency => Boost performance and reduce manual errors
 Terragrunt Hooks for Pre-Deployment Checks => Prevent bad changes before applying Terraform
 terraform {
   before_hook "validate" {
+
     commands = ["apply"]
+
     execute  = ["terraform", "validate"]
   }
 }
@@ -188,3 +197,6 @@ If your cloud-init configuration fails, this log file helps you identify errors 
 Verifying Instance Boot Setup:
 
 Ensures user-data scripts ran successfully (e.g., installing software or applying custom configurations).
+
+
+OPTIONAL => ADDING EC2 IMAGE BUILDER TO FILES
