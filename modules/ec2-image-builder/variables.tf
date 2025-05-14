@@ -64,3 +64,5 @@ variable "instance_profile_name" {
   description = "Instance profile name required for EC2 Image Builder"
   type        = string
 }
+
+variable "vpc_id" {}

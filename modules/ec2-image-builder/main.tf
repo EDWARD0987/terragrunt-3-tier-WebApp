@@ -1,34 +1,37 @@
-resource "aws_imagebuilder_image_pipeline" "example_pipeline" {
-  name                          = var.pipeline_name
-  description                   = var.pipeline_description
-  image_recipe_arn              = aws_imagebuilder_image_recipe.example_recipe.arn
-  infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.example_infra.arn
-}
+# resource "aws_imagebuilder_recipe" "example" {
+#   name         = "my-recipe"
+#   version      = "1.0.0"
+#   components   = [aws_imagebuilder_component.example.arn]
+#   parent_image = data.aws_ami.ubuntu.id
+# }
 
-resource "aws_imagebuilder_image_recipe" "example_recipe" {
-  name          = var.recipe_name
-  parent_image  = var.base_ami
-  version       = var.recipe_version
+# resource "aws_imagebuilder_component" "example" {
+#   name         = "install-nginx"
+#   version      = "1.0.0"
+#   platform     = "Linux"
+#   description  = "An example component to install NGINX"
+#   data         = file("${path.module}/install-nginx.yaml")
+# }
 
-  dynamic "component" {
-    for_each = var.image_components
-    content {
-      component_arn = component.value
-    }
-  }
-}
+# resource "aws_imagebuilder_pipeline" "example" {
+#   name                  = "my-pipeline"
+#   image_recipe_arn      = aws_imagebuilder_recipe.example.arn
+#   infrastructure_config = aws_imagebuilder_infrastructure.example.arn
+# }
 
-resource "aws_imagebuilder_infrastructure_configuration" "example_infra" {
-  name                    = var.infra_name
-  instance_types          = var.instance_types
-  security_group_ids      = [var.security_group_id]
-  subnet_id               = var.subnet_id
-  #iam_role_arn            = aws_iam_role.image_builder_role.arn
-  instance_profile_name   = aws_iam_instance_profile.image_builder_profile.name
-}
+# resource "aws_imagebuilder_infrastructure" "example" {
+#   name      = "my-infrastructure-config"
+#   instance_types = ["t2.micro"]
+#   subnet_id      = var.subnet_id
+#   security_group_ids = [var.security_group_id]
+#   sns_topic_arn      = aws_sns_topic.example.arn
+# }
+
+# resource "aws_subnet" "example" {
+#   vpc_id            = aws_vpc.example.id
+#   cidr_block        = "10.0.1.0/24"
+#   availability_zone = "us-east-1a"
+# }
 
 
-resource "aws_iam_instance_profile" "image_builder_profile" {
-  name = "EC2ImageBuilderInstanceProfile"
-  role = aws_iam_role.image_builder_role.name
-}
+

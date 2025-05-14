@@ -1,0 +1,12 @@
+name: InstallNginx
+description: Install NGINX on Linux
+schemaVersion: 1.0
+phases:
+  - name: build
+    steps:
+      - name: InstallNGINX
+        action: ExecuteBash
+        inputs:
+          commands:
+            - apt-get update -y
+            - apt-get install nginx -y
