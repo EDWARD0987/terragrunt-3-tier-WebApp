@@ -211,3 +211,16 @@ Ensures user-data scripts ran successfully (e.g., installing software or applyin
 
 
 OPTIONAL => ADDING EC2 IMAGE BUILDER TO FILES
+
+
+
+# HOW TO FIX ERROR = Missing Environment Variable: The function get_env("AWS_REGION")
+
+1 Check if AWS_REGION is set , run
+echo $AWS_REGION
+
+2 If it returns nothing you will need to set it :
+export AWS_REGION=us-east-1 
+
+Set it permanently (optional) 
+Add the export line to your shell profile (~/.bashrc, ~/.zshrc, etc.) if you want it to persist across sessions.
