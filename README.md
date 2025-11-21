@@ -213,6 +213,17 @@ Ensures user-data scripts ran successfully (e.g., installing software or applyin
 OPTIONAL => ADDING EC2 IMAGE BUILDER TO FILES
 
 
+# Reusability Patterns
+
+Terraform modules are self-contained, with variables & outputs for reuse.
+
+Terragrunt separates environment config (inputs) from module logic.
+
+Parent Terragrunt file manages remote state and provider.
+
+Can easily spin up dev/stage/prod environments by changing Terragrunt inputs.
+
+
 
 # HOW TO FIX ERROR = Missing Environment Variable: The function get_env("AWS_REGION")
 
