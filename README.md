@@ -223,6 +223,16 @@ Parent Terragrunt file manages remote state and provider.
 
 Can easily spin up dev/stage/prod environments by changing Terragrunt inputs.
 
+#  Optional Enhancements
+
+Add CI/CD integration (GitHub Actions, Jenkins, CodePipeline)
+
+Add auto-scaling policies for ECS or EC2
+
+Add monitoring & alerts via CloudWatch + SNS
+
+Add Secrets management via AWS Secrets Manager or SSM Parameter Store
+
 
 
 # HOW TO FIX ERROR = Missing Environment Variable: The function get_env("AWS_REGION")
